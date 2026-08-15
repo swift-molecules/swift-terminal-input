@@ -76,7 +76,8 @@ extension Terminal.Input.Parser {
             kind = .scrollRight
 
         case 128:
-            kind = isRelease ? .release(.backward) : (isMotion ? .drag(.backward) : .press(.backward))
+            kind =
+                isRelease ? .release(.backward) : (isMotion ? .drag(.backward) : .press(.backward))
 
         case 129:
             kind = isRelease ? .release(.forward) : (isMotion ? .drag(.forward) : .press(.forward))

@@ -81,22 +81,49 @@ extension Terminal.Input.Parser {
         }
         switch finalCode {
         case .A:
-            return .key(Terminal.Input.Key(code: .up, modifiers: modifiersFromCSI(paramCount >= 2 ? p1 : 0)))
+            return .key(
+                Terminal.Input.Key(code: .up, modifiers: modifiersFromCSI(paramCount >= 2 ? p1 : 0))
+            )
 
         case .B:
-            return .key(Terminal.Input.Key(code: .down, modifiers: modifiersFromCSI(paramCount >= 2 ? p1 : 0)))
+            return .key(
+                Terminal.Input.Key(
+                    code: .down,
+                    modifiers: modifiersFromCSI(paramCount >= 2 ? p1 : 0)
+                )
+            )
 
         case .C:
-            return .key(Terminal.Input.Key(code: .right, modifiers: modifiersFromCSI(paramCount >= 2 ? p1 : 0)))
+            return .key(
+                Terminal.Input.Key(
+                    code: .right,
+                    modifiers: modifiersFromCSI(paramCount >= 2 ? p1 : 0)
+                )
+            )
 
         case .D:
-            return .key(Terminal.Input.Key(code: .left, modifiers: modifiersFromCSI(paramCount >= 2 ? p1 : 0)))
+            return .key(
+                Terminal.Input.Key(
+                    code: .left,
+                    modifiers: modifiersFromCSI(paramCount >= 2 ? p1 : 0)
+                )
+            )
 
         case .H:
-            return .key(Terminal.Input.Key(code: .home, modifiers: modifiersFromCSI(paramCount >= 2 ? p1 : 0)))
+            return .key(
+                Terminal.Input.Key(
+                    code: .home,
+                    modifiers: modifiersFromCSI(paramCount >= 2 ? p1 : 0)
+                )
+            )
 
         case .F:
-            return .key(Terminal.Input.Key(code: .end, modifiers: modifiersFromCSI(paramCount >= 2 ? p1 : 0)))
+            return .key(
+                Terminal.Input.Key(
+                    code: .end,
+                    modifiers: modifiersFromCSI(paramCount >= 2 ? p1 : 0)
+                )
+            )
 
         case .Z:
             return .key(Terminal.Input.Key(code: .backtab))
