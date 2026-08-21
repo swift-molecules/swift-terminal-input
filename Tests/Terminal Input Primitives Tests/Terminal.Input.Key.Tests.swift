@@ -1,18 +1,5 @@
-// ===----------------------------------------------------------------------===//
-//
-// This source file is part of the swift-terminal-primitives open source project
-//
-// Copyright (c) 2024 Coen ten Thije Boonkkamp and the swift-terminal-primitives project authors
-// Licensed under Apache License v2.0
-//
-// See LICENSE for license information
-//
-// ===----------------------------------------------------------------------===//
-
 import Terminal_Input_Primitives
 import Testing
-
-// MARK: - Key Type Tests
 
 @Suite("Terminal.Input.Key")
 struct KeyTests {
@@ -46,8 +33,6 @@ struct KeyTests {
         #expect(key.kind == nil)
     }
 }
-
-// MARK: - Modifiers OptionSet Tests
 
 @Suite("Terminal.Input.Key.Modifiers")
 struct ModifiersTests {
@@ -89,18 +74,13 @@ struct ModifiersTests {
 
     @Test
     func `CSI modifier encoding: value = 1 + bits`() {
-        // Shift: CSI param = 2 (1 + 1)
-        // Alt: CSI param = 3 (1 + 2)
-        // Ctrl: CSI param = 5 (1 + 4)
-        // Shift+Ctrl: CSI param = 6 (1 + 5)
+
         #expect(Key.Modifiers(rawValue: UInt8(2 - 1)) == .shift)
         #expect(Key.Modifiers(rawValue: UInt8(3 - 1)) == .alt)
         #expect(Key.Modifiers(rawValue: UInt8(5 - 1)) == .control)
         #expect(Key.Modifiers(rawValue: UInt8(6 - 1)) == [.shift, .control])
     }
 }
-
-// MARK: - Mouse Type Tests
 
 @Suite("Terminal.Input.Mouse")
 struct MouseTypeTests {
@@ -132,8 +112,6 @@ struct MouseTypeTests {
         #expect(mouse.modifiers == [])
     }
 }
-
-// MARK: - Event Type Tests
 
 @Suite("Terminal.Input.Event")
 struct EventTypeTests {

@@ -1,18 +1,5 @@
-// ===----------------------------------------------------------------------===//
-//
-// This source file is part of the swift-terminal-primitives open source project
-//
-// Copyright (c) 2024 Coen ten Thije Boonkkamp and the swift-terminal-primitives project authors
-// Licensed under Apache License v2.0
-//
-// See LICENSE for license information
-//
-// ===----------------------------------------------------------------------===//
-
 import Terminal_Input_Primitives
 import Testing
-
-// MARK: - Arrow Keys
 
 @Suite("Parser — CSI Arrow Keys")
 struct CSIArrowTests {
@@ -42,8 +29,6 @@ struct CSIArrowTests {
     }
 }
 
-// MARK: - Modified Arrow Keys
-
 @Suite("Parser — CSI Modified Keys")
 struct CSIModifiedKeyTests {
 
@@ -72,8 +57,6 @@ struct CSIModifiedKeyTests {
     }
 }
 
-// MARK: - Navigation Keys
-
 @Suite("Parser — CSI Navigation Keys")
 struct CSINavigationTests {
 
@@ -95,8 +78,6 @@ struct CSINavigationTests {
         #expect(event == .key(Key(code: .backtab)))
     }
 }
-
-// MARK: - Tilde Keys
 
 @Suite("Parser — CSI Tilde Keys")
 struct CSITildeTests {
@@ -138,8 +119,6 @@ struct CSITildeTests {
     }
 }
 
-// MARK: - Function Keys
-
 @Suite("Parser — CSI Function Keys")
 struct CSIFunctionKeyTests {
 
@@ -173,8 +152,6 @@ struct CSIFunctionKeyTests {
         #expect(event == .key(Key(code: .function(5), modifiers: .control)))
     }
 }
-
-// MARK: - SS3 Function Keys
 
 @Suite("Parser — SS3 Function Keys")
 struct SS3Tests {
@@ -216,8 +193,6 @@ struct SS3Tests {
     }
 }
 
-// MARK: - Bracketed Paste
-
 @Suite("Parser — Bracketed Paste")
 struct BracketedPasteTests {
 
@@ -227,8 +202,6 @@ struct BracketedPasteTests {
         #expect(event == .paste(""))
     }
 }
-
-// MARK: - Incomplete CSI
 
 @Suite("Parser — Incomplete Sequences")
 struct IncompleteCSITests {

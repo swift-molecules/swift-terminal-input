@@ -1,14 +1,3 @@
-// ===----------------------------------------------------------------------===//
-//
-// This source file is part of the swift-terminal-primitives open source project
-//
-// Copyright (c) 2024 Coen ten Thije Boonkkamp and the swift-terminal-primitives project authors
-// Licensed under Apache License v2.0
-//
-// See LICENSE for license information
-//
-// ===----------------------------------------------------------------------===//
-
 import Terminal_Input_Primitives
 import Testing
 
@@ -18,13 +7,10 @@ typealias Event = Terminal.Input.Event
 typealias Parser = Terminal.Input.Parser
 typealias ParseError = Terminal.Input.Parser.Error
 
-/// Helper: parse a single event from a byte array.
 func parse(_ bytes: [Byte]) throws(ParseError) -> Event {
     var buffer = Input.Buffer<ContiguousArray<Byte>>(ContiguousArray(bytes))
     return try Parser.parse(&buffer)
 }
-
-// MARK: - Single Byte Tests
 
 @Suite("Parser — Single Bytes")
 struct SingleByteTests {
@@ -60,8 +46,6 @@ struct SingleByteTests {
         }
     }
 }
-
-// MARK: - Control Character Tests
 
 @Suite("Parser — Control Characters")
 struct ControlCharacterTests {
@@ -115,8 +99,6 @@ struct ControlCharacterTests {
     }
 }
 
-// MARK: - Escape Tests
-
 @Suite("Parser — Escape Sequences")
 struct EscapeTests {
 
@@ -150,35 +132,33 @@ struct EscapeTests {
     }
 }
 
-// MARK: - UTF-8 Tests
-
 @Suite("Parser — UTF-8")
 struct UTF8Tests {
 
     @Test
     func `2-byte UTF-8 (é)`() throws {
-        // U+00E9 LATIN SMALL LETTER E WITH ACUTE = 0xC3 0xA9
+
         let event = try parse([0xC3, 0xA9])
         #expect(event == .key(Key(code: .character("\u{00E9}"))))
     }
 
     @Test
     func `3-byte UTF-8 (€)`() throws {
-        // U+20AC EURO SIGN = 0xE2 0x82 0xAC
+
         let event = try parse([0xE2, 0x82, 0xAC])
         #expect(event == .key(Key(code: .character("\u{20AC}"))))
     }
 
     @Test
     func `4-byte UTF-8 (😀)`() throws {
-        // U+1F600 GRINNING FACE = 0xF0 0x9F 0x98 0x80
+
         let event = try parse([0xF0, 0x9F, 0x98, 0x80])
         #expect(event == .key(Key(code: .character("\u{1F600}"))))
     }
 
     @Test
     func `Incomplete UTF-8 throws incompleteSequence`() {
-        // 2-byte start with no continuation
+
         #expect(throws: ParseError.incompleteSequence) {
             try parse([0xC3])
         }
@@ -186,7 +166,7 @@ struct UTF8Tests {
 
     @Test
     func `Invalid continuation byte throws invalidUTF8`() {
-        // 2-byte start with invalid continuation (not 0x80-0xBF)
+
         #expect(throws: ParseError.invalidUTF8) {
             try parse([0xC3, 0x41])
         }
@@ -203,14 +183,12 @@ struct UTF8Tests {
     }
 }
 
-// MARK: - Sequential Parsing Tests
-
 @Suite("Parser — Sequential Events")
 struct SequentialTests {
 
     @Test
     func `Parse multiple events from one buffer`() throws {
-        // "ab" = two character events
+
         var buffer = Input.Buffer<ContiguousArray<Byte>>(ContiguousArray<Byte>([0x61, 0x62]))
         let first = try Parser.parse(&buffer)
         let second = try Parser.parse(&buffer)

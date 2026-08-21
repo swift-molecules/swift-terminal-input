@@ -1,30 +1,5 @@
-// ===----------------------------------------------------------------------===//
-//
-// This source file is part of the swift-terminal-input-primitives open source project
-//
-// Copyright (c) 2024 Coen ten Thije Boonkkamp and the swift-terminal-input-primitives project authors
-// Licensed under Apache License v2.0
-//
-// See LICENSE for license information
-//
-// ===----------------------------------------------------------------------===//
-
-// MARK: - SGR Mouse Parsing
-
 extension Terminal.Input.Parser {
 
-    /// Parses an SGR mouse event from collected CSI parameters.
-    ///
-    /// SGR format: `ESC [ < Pb ; Px ; Py M` (press) or `ESC [ < Pb ; Px ; Py m` (release)
-    ///
-    /// Button bits in Pb:
-    /// - Low 2 bits: button number (0=left, 1=middle, 2=right)
-    /// - Bit 2 (4): Shift
-    /// - Bit 3 (8): Alt
-    /// - Bit 4 (16): Control
-    /// - Bit 5 (32): Motion flag (drag/move)
-    /// - Bit 6 (64): Scroll base (64=up, 65=down, 66=left, 67=right)
-    /// - Bit 7 (128): Extended buttons (128=backward, 129=forward)
     static func parseSGRMouse(
         buttonBits: UInt32,
         column: UInt32,
@@ -34,19 +9,14 @@ extension Terminal.Input.Parser {
     ) throws(Self.Error) -> Terminal.Input.Event {
         guard paramCount >= 3 else { throw .unrecognizedSequence }
 
-        // Compare at the Byte layer using the named ASCII constant — this
-        // is byte-pattern equality (SGR mouse "release" final is 'm', press
-        // is 'M'), not a claim that `finalByte` is ASCII.
         let isRelease = finalByte == ASCII.Code.m.byte
         let isMotion = buttonBits & 32 != 0
 
-        // Extract modifier flags from button bits
         var modifiers = Terminal.Input.Key.Modifiers()
         if buttonBits & 4 != 0 { modifiers.insert(.shift) }
         if buttonBits & 8 != 0 { modifiers.insert(.alt) }
         if buttonBits & 16 != 0 { modifiers.insert(.control) }
 
-        // Strip modifier and motion bits to get the button value
         let buttonValue = buttonBits & ~UInt32(4 | 8 | 16 | 32)
 
         let kind: Terminal.Input.Mouse.Kind

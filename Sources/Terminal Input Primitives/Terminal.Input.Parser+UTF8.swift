@@ -1,26 +1,5 @@
-// ===----------------------------------------------------------------------===//
-//
-// This source file is part of the swift-terminal-input-primitives open source project
-//
-// Copyright (c) 2024 Coen ten Thije Boonkkamp and the swift-terminal-input-primitives project authors
-// Licensed under Apache License v2.0
-//
-// See LICENSE for license information
-//
-// ===----------------------------------------------------------------------===//
-
-// MARK: - UTF-8 Multibyte Parsing
-
 extension Terminal.Input.Parser {
 
-    /// Parses a UTF-8 multibyte character sequence.
-    ///
-    /// The first byte (0x80–0xFF) has already been peeked but not consumed.
-    /// Determines the expected length from the leading byte, then reads
-    /// and validates continuation bytes (0x80–0xBF).
-    ///
-    /// - Throws: ``Error/invalidUTF8`` if the byte sequence is malformed.
-    /// - Throws: ``Error/incompleteSequence`` if continuation bytes are missing.
     static func parseUTF8<Storage>(
         _ input: inout Input.Buffer<Storage>
     ) throws(Self.Error) -> Terminal.Input.Event
@@ -34,10 +13,6 @@ extension Terminal.Input.Parser {
         let length: Int
         let initial: UInt32
 
-        // UTF-8 leading-byte ranges are byte-domain patterns (not ASCII —
-        // bytes 0x80–0xFF are outside the ASCII range per RFC 3629). The
-        // literal range patterns match Byte directly via
-        // ExpressibleByIntegerLiteral on Byte.`Protocol`.
         switch first {
         case 0xC0...0xDF:
             length = 2
