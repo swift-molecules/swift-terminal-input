@@ -1,4 +1,4 @@
-import Terminal_Input_Primitives
+import Terminal_Input
 import Testing
 
 @Suite("Terminal.Input.Key")

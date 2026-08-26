@@ -3,7 +3,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "swift-terminal-input-primitives",
+    name: "swift-terminal-input",
     platforms: [
         .macOS(.v27),
         .iOS(.v27),
@@ -13,50 +13,50 @@ let package = Package(
     ],
     products: [
         .library(
-            name: "Terminal Input Primitives",
-            targets: ["Terminal Input Primitives"]
+            name: "Terminal Input",
+            targets: ["Terminal Input"]
         ),
         .library(
-            name: "Terminal Input Primitives Test Support",
-            targets: ["Terminal Input Primitives Test Support"]
+            name: "Terminal Input Test Support",
+            targets: ["Terminal Input Test Support"]
         ),
     ],
     dependencies: [
         .package(
-            url: "https://github.com/swift-primitives/swift-terminal-primitives.git",
+            url: "https://github.com/swift-molecules/swift-terminal.git",
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-primitives/swift-input-primitives.git",
+            url: "https://github.com/swift-molecules/swift-input.git",
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-primitives/swift-ascii-primitives.git",
+            url: "https://github.com/swift-molecules/swift-ascii.git",
             branch: "main"
         ),
     ],
     targets: [
         .target(
-            name: "Terminal Input Primitives",
+            name: "Terminal Input",
             dependencies: [
-                .product(name: "Terminal Primitives", package: "swift-terminal-primitives"),
-                .product(name: "Input Primitives", package: "swift-input-primitives"),
-                .product(name: "ASCII Primitives", package: "swift-ascii-primitives"),
+                .product(name: "Terminal", package: "swift-terminal"),
+                .product(name: "Input", package: "swift-input"),
+                .product(name: "ASCII", package: "swift-ascii"),
             ]
         ),
         .target(
-            name: "Terminal Input Primitives Test Support",
+            name: "Terminal Input Test Support",
             dependencies: [
-                "Terminal Input Primitives",
-                .product(name: "Input Primitives Test Support", package: "swift-input-primitives"),
+                "Terminal Input",
+                .product(name: "Input Test Support", package: "swift-input"),
             ],
             path: "Tests/Support"
         ),
         .testTarget(
-            name: "Terminal Input Primitives Tests",
+            name: "Terminal Input Tests",
             dependencies: [
-                "Terminal Input Primitives",
-                "Terminal Input Primitives Test Support",
+                "Terminal Input",
+                "Terminal Input Test Support",
             ]
         ),
     ],

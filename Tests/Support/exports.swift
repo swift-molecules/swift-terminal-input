@@ -1,2 +1,2 @@
-@_exported public import Terminal_Input_Primitives
-@_exported public import Input_Primitives_Test_Support
+@_exported public import Terminal_Input
+@_exported public import Input_Test_Support

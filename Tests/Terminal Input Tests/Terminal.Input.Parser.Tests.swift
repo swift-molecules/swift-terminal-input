@@ -1,4 +1,4 @@
-import Terminal_Input_Primitives
+import Terminal_Input
 import Testing
 
 typealias Key = Terminal.Input.Key

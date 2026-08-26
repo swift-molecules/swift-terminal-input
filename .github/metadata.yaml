@@ -1,5 +1,5 @@
 # .github/metadata.yaml
-description: "Terminal Input parser surface — Key/Mouse events + CSI / Kitty / UTF-8 / Mouse / Control parser variants over Terminal_Primitives_Core + swift-input-primitives + swift-ascii-primitives."
+description: "Terminal Input parser surface — Key/Mouse events + CSI / Kitty / UTF-8 / Mouse / Control parser variants over Terminal_Core + swift-input + swift-ascii."
 topics:
   - primitives
   - terminal

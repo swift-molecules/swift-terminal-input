@@ -1,4 +1,4 @@
-# Terminal Input Primitives
+# Terminal Input
 
 ![Development Status](https://img.shields.io/badge/status-active--development-blue.svg)
 
@@ -11,7 +11,7 @@ Decodes raw terminal byte streams into structured keyboard, mouse, resize, and p
 `Terminal.Input.Parser` reads bytes from an `Input.Buffer` cursor and returns one `Terminal.Input.Event` at a time. The parser is stateless — all position lives in the buffer — so it drops straight into a read loop.
 
 ```swift
-import Terminal_Input_Primitives
+import Terminal_Input
 
 // Raw bytes from the terminal: ESC [ A — the Up arrow key.
 var buffer = Input.Buffer<ContiguousArray<Byte>>([0x1B, 0x5B, 0x41])
@@ -43,7 +43,7 @@ Partial reads are first-class. When the buffer ends mid-sequence the parser thro
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/swift-primitives/swift-terminal-input-primitives.git", branch: "main")
+    .package(url: "https://github.com/swift-molecules/swift-terminal-input.git", branch: "main")
 ]
 ```
 
@@ -51,7 +51,7 @@ dependencies: [
 .target(
     name: "App",
     dependencies: [
-        .product(name: "Terminal Input Primitives", package: "swift-terminal-input-primitives"),
+        .product(name: "Terminal Input", package: "swift-terminal-input"),
     ]
 )
 ```
@@ -66,8 +66,8 @@ Two library products. Depends only on the `Terminal`, `Input`, and `ASCII` primi
 
 | Product | Target | Purpose |
 |---------|--------|---------|
-| `Terminal Input Primitives` | `Sources/Terminal Input Primitives/` | The `Terminal.Input` namespace: `Event`; `Key` with `Code`, `Kind`, and the `Modifiers` option set; `Mouse` with `Button` and `Kind`; and `Parser` with its typed `Error`. Decodes VT/xterm sequences, SGR mouse reports, and the Kitty keyboard protocol. |
-| `Terminal Input Primitives Test Support` | `Tests/Support/` | Re-exports the main target for test consumers. |
+| `Terminal Input` | `Sources/Terminal Input/` | The `Terminal.Input` namespace: `Event`; `Key` with `Code`, `Kind`, and the `Modifiers` option set; `Mouse` with `Button` and `Kind`; and `Parser` with its typed `Error`. Decodes VT/xterm sequences, SGR mouse reports, and the Kitty keyboard protocol. |
+| `Terminal Input Test Support` | `Tests/Support/` | Re-exports the main target for test consumers. |
 
 Foundation-free.
 
