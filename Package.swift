@@ -23,15 +23,23 @@ let package = Package(
     ],
     dependencies: [
         .package(
-            url: "https://github.com/swift-molecules/swift-terminal.git",
+            url: "https://github.com/swift-atoms/swift-terminal.git",
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-molecules/swift-input.git",
+            url: "https://github.com/swift-atoms/swift-input.git",
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-molecules/swift-ascii.git",
+            url: "https://github.com/swift-atoms/swift-ascii.git",
+            branch: "main"
+        ),
+        .package(
+            url: "https://github.com/swift-atoms/swift-byte.git",
+            branch: "main"
+        ),
+        .package(
+            url: "https://github.com/swift-molecules/swift-ascii-byte.git",
             branch: "main"
         ),
     ],
@@ -42,13 +50,14 @@ let package = Package(
                 .product(name: "Terminal", package: "swift-terminal"),
                 .product(name: "Input", package: "swift-input"),
                 .product(name: "ASCII", package: "swift-ascii"),
+                .product(name: "Byte", package: "swift-byte"),
+                .product(name: "ASCII Byte", package: "swift-ascii-byte"),
             ]
         ),
         .target(
             name: "Terminal Input Test Support",
             dependencies: [
                 "Terminal Input",
-                .product(name: "Input Test Support", package: "swift-input"),
             ],
             path: "Tests/Support"
         ),

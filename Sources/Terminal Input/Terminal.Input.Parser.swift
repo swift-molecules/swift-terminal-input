@@ -57,7 +57,7 @@ extension Terminal.Input.Parser {
 
         case .space...ASCII.Code.tilde:
             let b = consumeUnchecked(&input)
-            return .key(Terminal.Input.Key(code: .character(Unicode.Scalar(b))))
+            return .key(Terminal.Input.Key(code: .character(Unicode.Scalar(b.underlying))))
 
         default:
 
@@ -103,7 +103,7 @@ extension Terminal.Input.Parser {
             consumeUnchecked(&input)
             return .key(
                 Terminal.Input.Key(
-                    code: .character(Unicode.Scalar(next)),
+                    code: .character(Unicode.Scalar(next.underlying)),
                     modifiers: .alt
                 )
             )

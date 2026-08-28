@@ -24,7 +24,7 @@ extension Terminal.Input.Parser {
         case .nul:
             return .key(
                 Terminal.Input.Key(
-                    code: .character(Unicode.Scalar(ASCII.Code.space)),
+                    code: .character(Unicode.Scalar(ASCII.Code.space.underlying)),
                     modifiers: .control
                 )
             )

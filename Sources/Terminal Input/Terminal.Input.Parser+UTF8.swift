@@ -13,18 +13,18 @@ extension Terminal.Input.Parser {
         let length: Int
         let initial: UInt32
 
-        switch first {
+        switch first.underlying {
         case 0xC0...0xDF:
             length = 2
-            initial = UInt32(first & 0x1F)
+            initial = UInt32(first.underlying & 0x1F)
 
         case 0xE0...0xEF:
             length = 3
-            initial = UInt32(first & 0x0F)
+            initial = UInt32(first.underlying & 0x0F)
 
         case 0xF0...0xF7:
             length = 4
-            initial = UInt32(first & 0x07)
+            initial = UInt32(first.underlying & 0x07)
 
         default:
             throw .invalidUTF8
@@ -35,11 +35,11 @@ extension Terminal.Input.Parser {
             guard let byte = input.first else {
                 throw .incompleteSequence
             }
-            guard byte & 0xC0 == 0x80 else {
+            guard byte.underlying & 0xC0 == 0x80 else {
                 throw .invalidUTF8
             }
             consumeUnchecked(&input)
-            codepoint = (codepoint << 6) | UInt32(byte & 0x3F)
+            codepoint = (codepoint << 6) | UInt32(byte.underlying & 0x3F)
         }
 
         guard let scalar = Unicode.Scalar(codepoint) else {
