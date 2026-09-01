@@ -1,12 +1,8 @@
 extension Terminal.Input.Parser {
 
-    static func parseControlCharacter<Storage>(
-        _ input: inout Input.Buffer<Storage>
+    static func parseControlCharacter(
+        _ input: inout Byte.Input
     ) -> Terminal.Input.Event
-    where
-        Storage: RandomAccessCollection & Sendable,
-        Storage.Element == Byte,
-        Storage.Index: Sendable & Hashable
     {
         let byte = consumeUnchecked(&input)
 

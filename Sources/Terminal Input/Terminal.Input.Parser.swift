@@ -8,13 +8,9 @@ extension Terminal.Input {
 
 extension Terminal.Input.Parser {
 
-    public static func parse<Storage>(
-        _ input: inout Input.Buffer<Storage>
+    public static func parse(
+        _ input: inout Byte.Input
     ) throws(Self.Error) -> Terminal.Input.Event
-    where
-        Storage: RandomAccessCollection & Sendable,
-        Storage.Element == Byte,
-        Storage.Index: Sendable & Hashable
     {
         guard let byte = input.first else {
             throw .emptyInput
@@ -68,13 +64,9 @@ extension Terminal.Input.Parser {
 
 extension Terminal.Input.Parser {
 
-    static func parseEscapeSequence<Storage>(
-        _ input: inout Input.Buffer<Storage>
+    static func parseEscapeSequence(
+        _ input: inout Byte.Input
     ) throws(Self.Error) -> Terminal.Input.Event
-    where
-        Storage: RandomAccessCollection & Sendable,
-        Storage.Element == Byte,
-        Storage.Index: Sendable & Hashable
     {
 
         consumeUnchecked(&input)
@@ -117,37 +109,27 @@ extension Terminal.Input.Parser {
 extension Terminal.Input.Parser {
 
     @inline(always)
-    static func consume<Storage>(
-        _ input: inout Input.Buffer<Storage>
+    static func consume(
+        _ input: inout Byte.Input
     ) throws(Self.Error) -> Byte
-    where
-        Storage: RandomAccessCollection & Sendable,
-        Storage.Element == Byte,
-        Storage.Index: Sendable & Hashable
     {
-        do {
-            return try input.advance()
-        } catch {
+        guard let byte = input.next() else {
             throw .incompleteSequence
         }
+        return byte
     }
 
     @inline(always)
     @discardableResult
-    static func consumeUnchecked<Storage>(
-        _ input: inout Input.Buffer<Storage>
+    static func consumeUnchecked(
+        _ input: inout Byte.Input
     ) -> Byte
-    where
-        Storage: RandomAccessCollection & Sendable,
-        Storage.Element == Byte,
-        Storage.Index: Sendable & Hashable
     {
-        do {
-            return try input.advance()
-        } catch {
+        guard let byte = input.next() else {
             preconditionFailure(
                 "consumeUnchecked requires a non-empty buffer; the caller violated the !input.isEmpty precondition"
             )
         }
+        return byte
     }
 }

@@ -8,7 +8,7 @@ typealias Parser = Terminal.Input.Parser
 typealias ParseError = Terminal.Input.Parser.Error
 
 func parse(_ bytes: [Byte]) throws(ParseError) -> Event {
-    var buffer = Input.Buffer<ContiguousArray<Byte>>(ContiguousArray(bytes))
+    var buffer = Byte.Input(bytes)
     return try Parser.parse(&buffer)
 }
 
@@ -111,7 +111,7 @@ struct EscapeTests {
 
     @Test
     func `Bare ESC restores buffer position`() {
-        var buffer = Input.Buffer<ContiguousArray<Byte>>(ContiguousArray<Byte>([0x1B]))
+        var buffer = Byte.Input([0x1B])
         let saved = buffer.checkpoint
         #expect(throws: ParseError.incompleteSequence) {
             try Parser.parse(&buffer)
@@ -174,7 +174,7 @@ struct UTF8Tests {
 
     @Test
     func `Incomplete UTF-8 restores buffer position`() {
-        var buffer = Input.Buffer<ContiguousArray<Byte>>(ContiguousArray<Byte>([0xC3]))
+        var buffer = Byte.Input([0xC3])
         let saved = buffer.checkpoint
         #expect(throws: ParseError.incompleteSequence) {
             try Parser.parse(&buffer)
@@ -189,7 +189,7 @@ struct SequentialTests {
     @Test
     func `Parse multiple events from one buffer`() throws {
 
-        var buffer = Input.Buffer<ContiguousArray<Byte>>(ContiguousArray<Byte>([0x61, 0x62]))
+        var buffer = Byte.Input([0x61, 0x62])
         let first = try Parser.parse(&buffer)
         let second = try Parser.parse(&buffer)
         #expect(first == .key(Key(code: .character("a"))))
@@ -198,7 +198,7 @@ struct SequentialTests {
 
     @Test
     func `Buffer is empty after consuming all bytes`() throws {
-        var buffer = Input.Buffer<ContiguousArray<Byte>>(ContiguousArray<Byte>([0x61]))
+        var buffer = Byte.Input([0x61])
         _ = try Parser.parse(&buffer)
         let empty = buffer.isEmpty
         #expect(empty)

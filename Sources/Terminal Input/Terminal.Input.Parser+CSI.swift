@@ -1,12 +1,8 @@
 extension Terminal.Input.Parser {
 
-    static func parseCSI<Storage>(
-        _ input: inout Input.Buffer<Storage>
+    static func parseCSI(
+        _ input: inout Byte.Input
     ) throws(Self.Error) -> Terminal.Input.Event
-    where
-        Storage: RandomAccessCollection & Sendable,
-        Storage.Element == Byte,
-        Storage.Index: Sendable & Hashable
     {
 
         var isSGRMouse = false
@@ -120,18 +116,14 @@ extension Terminal.Input.Parser {
 
 extension Terminal.Input.Parser {
 
-    static func collectParameters<Storage>(
-        from input: inout Input.Buffer<Storage>,
+    static func collectParameters(
+        from input: inout Byte.Input,
         p0: inout UInt32,
         p1: inout UInt32,
         p2: inout UInt32,
         count: inout Int,
         eventType: inout UInt32?
     )
-    where
-        Storage: RandomAccessCollection & Sendable,
-        Storage.Element == Byte,
-        Storage.Index: Sendable & Hashable
     {
         var current: UInt32 = 0
         var needsPush = false
@@ -246,13 +238,9 @@ extension Terminal.Input.Parser {
 
 extension Terminal.Input.Parser {
 
-    static func parseSS3<Storage>(
-        _ input: inout Input.Buffer<Storage>
+    static func parseSS3(
+        _ input: inout Byte.Input
     ) throws(Self.Error) -> Terminal.Input.Event
-    where
-        Storage: RandomAccessCollection & Sendable,
-        Storage.Element == Byte,
-        Storage.Index: Sendable & Hashable
     {
         let byte = try consume(&input)
 

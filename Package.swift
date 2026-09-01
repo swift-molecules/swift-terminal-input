@@ -27,7 +27,7 @@ let package = Package(
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-atoms/swift-input.git",
+            url: "https://github.com/swift-molecules/swift-byte-parser.git",
             branch: "main"
         ),
         .package(
@@ -48,7 +48,7 @@ let package = Package(
             name: "Terminal Input",
             dependencies: [
                 .product(name: "Terminal", package: "swift-terminal"),
-                .product(name: "Input", package: "swift-input"),
+                .product(name: "Byte Parser", package: "swift-byte-parser"),
                 .product(name: "ASCII", package: "swift-ascii"),
                 .product(name: "Byte", package: "swift-byte"),
                 .product(name: "ASCII Byte", package: "swift-ascii-byte"),

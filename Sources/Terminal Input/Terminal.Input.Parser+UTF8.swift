@@ -1,12 +1,8 @@
 extension Terminal.Input.Parser {
 
-    static func parseUTF8<Storage>(
-        _ input: inout Input.Buffer<Storage>
+    static func parseUTF8(
+        _ input: inout Byte.Input
     ) throws(Self.Error) -> Terminal.Input.Event
-    where
-        Storage: RandomAccessCollection & Sendable,
-        Storage.Element == Byte,
-        Storage.Index: Sendable & Hashable
     {
         let first = consumeUnchecked(&input)
 
