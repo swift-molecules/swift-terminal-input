@@ -22,12 +22,9 @@ let package = Package(
         ),
     ],
     dependencies: [
+        .package(url: "https://github.com/swift-atoms/swift-cursor.git", branch: "main"),
         .package(
             url: "https://github.com/swift-atoms/swift-terminal.git",
-            branch: "main"
-        ),
-        .package(
-            url: "https://github.com/swift-molecules/swift-byte-parser.git",
             branch: "main"
         ),
         .package(
@@ -48,7 +45,10 @@ let package = Package(
             name: "Terminal Input",
             dependencies: [
                 .product(name: "Terminal", package: "swift-terminal"),
-                .product(name: "Byte Parser", package: "swift-byte-parser"),
+                .product(name: "Byte", package: "swift-byte"),
+                .product(name: "Byte Standard Library Integration", package: "swift-byte"),
+                .product(name: "Cursor", package: "swift-cursor"),
+                .product(name: "Cursor Standard Library Integration", package: "swift-cursor"),
                 .product(name: "ASCII", package: "swift-ascii"),
                 .product(name: "Byte", package: "swift-byte"),
                 .product(name: "ASCII Byte", package: "swift-ascii-byte"),

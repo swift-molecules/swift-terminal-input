@@ -1,7 +1,7 @@
 extension Terminal.Input.Parser {
 
     static func parseUTF8(
-        _ input: inout Byte.Input
+        _ input: inout ArraySlice<Byte>
     ) throws(Self.Error) -> Terminal.Input.Event
     {
         let first = consumeUnchecked(&input)

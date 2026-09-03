@@ -1,7 +1,7 @@
 extension Terminal.Input.Parser {
 
     static func parseCSI(
-        _ input: inout Byte.Input
+        _ input: inout ArraySlice<Byte>
     ) throws(Self.Error) -> Terminal.Input.Event
     {
 
@@ -117,7 +117,7 @@ extension Terminal.Input.Parser {
 extension Terminal.Input.Parser {
 
     static func collectParameters(
-        from input: inout Byte.Input,
+        from input: inout ArraySlice<Byte>,
         p0: inout UInt32,
         p1: inout UInt32,
         p2: inout UInt32,
@@ -239,7 +239,7 @@ extension Terminal.Input.Parser {
 extension Terminal.Input.Parser {
 
     static func parseSS3(
-        _ input: inout Byte.Input
+        _ input: inout ArraySlice<Byte>
     ) throws(Self.Error) -> Terminal.Input.Event
     {
         let byte = try consume(&input)

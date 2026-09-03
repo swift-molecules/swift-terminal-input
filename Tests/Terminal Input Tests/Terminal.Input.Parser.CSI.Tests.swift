@@ -208,7 +208,7 @@ struct IncompleteCSITests {
 
     @Test
     func `Incomplete CSI restores position: ESC [`() {
-        var buffer = Byte.Input([0x1B, 0x5B])
+        var buffer = ArraySlice<Byte>([0x1B, 0x5B])
         let saved = buffer.checkpoint
         #expect(throws: ParseError.incompleteSequence) {
             try Parser.parse(&buffer)
@@ -218,7 +218,7 @@ struct IncompleteCSITests {
 
     @Test
     func `Incomplete arrow restores position: ESC [ 1 ;`() {
-        var buffer = Byte.Input([0x1B, 0x5B, 0x31, 0x3B])
+        var buffer = ArraySlice<Byte>([0x1B, 0x5B, 0x31, 0x3B])
         let saved = buffer.checkpoint
         #expect(throws: ParseError.incompleteSequence) {
             try Parser.parse(&buffer)

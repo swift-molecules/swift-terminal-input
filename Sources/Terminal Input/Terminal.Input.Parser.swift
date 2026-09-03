@@ -9,7 +9,7 @@ extension Terminal.Input {
 extension Terminal.Input.Parser {
 
     public static func parse(
-        _ input: inout Byte.Input
+        _ input: inout ArraySlice<Byte>
     ) throws(Self.Error) -> Terminal.Input.Event
     {
         guard let byte = input.first else {
@@ -65,7 +65,7 @@ extension Terminal.Input.Parser {
 extension Terminal.Input.Parser {
 
     static func parseEscapeSequence(
-        _ input: inout Byte.Input
+        _ input: inout ArraySlice<Byte>
     ) throws(Self.Error) -> Terminal.Input.Event
     {
 
@@ -110,7 +110,7 @@ extension Terminal.Input.Parser {
 
     @inline(always)
     static func consume(
-        _ input: inout Byte.Input
+        _ input: inout ArraySlice<Byte>
     ) throws(Self.Error) -> Byte
     {
         guard let byte = input.next() else {
@@ -122,7 +122,7 @@ extension Terminal.Input.Parser {
     @inline(always)
     @discardableResult
     static func consumeUnchecked(
-        _ input: inout Byte.Input
+        _ input: inout ArraySlice<Byte>
     ) -> Byte
     {
         guard let byte = input.next() else {

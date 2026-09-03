@@ -1,7 +1,7 @@
 extension Terminal.Input.Parser {
 
     static func parseControlCharacter(
-        _ input: inout Byte.Input
+        _ input: inout ArraySlice<Byte>
     ) -> Terminal.Input.Event
     {
         let byte = consumeUnchecked(&input)
